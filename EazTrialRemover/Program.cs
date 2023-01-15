@@ -37,14 +37,14 @@ namespace EazTrialRemover {
             }
             Console.WriteLine(removed ? "Removed Trial Succesufully" : "Couldn't remove trial");
             Thread.Sleep(1500);
-            Environment.Exit(removed ? -1 : 0);
+            Environment.Exit(removed ? 0 : -1);
         }
         static bool patch(ModuleDefMD Module) {
             foreach(var type in Module.Types) {
                 foreach(var method in type.Methods) {
                     if(!method.HasBody) continue;
                     var instrs = method.Body.Instructions;
-                    if(instrs.Count > 3) continue;
+                    if(instrs.Count > 3) continue; // why not
                     if(instrs[0].OpCode == OpCodes.Ldc_I4_1 && instrs[1].OpCode == OpCodes.Call) {
                         if(instrs[1].Operand is MethodDef) {
                             var methodCall = instrs[1].Operand as MethodDef;
