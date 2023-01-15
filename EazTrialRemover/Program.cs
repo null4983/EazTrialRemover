@@ -31,9 +31,7 @@ namespace EazTrialRemover {
                 string output = path.Contains(".exe") ? path.Replace(".exe", "_removed.exe") : path.Replace(".dll", "_removed.dll");
                 if(module.IsILOnly) {
                     module.Write(output);
-                    return;
-                }
-                module.NativeWrite(output);
+                } else { module.NativeWrite(output); }
             }
             Console.WriteLine(removed ? "Removed Trial Succesufully" : "Couldn't remove trial");
             Thread.Sleep(1500);
